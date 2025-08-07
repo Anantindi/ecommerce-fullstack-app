@@ -4,3 +4,6 @@ flask_login
 flask_wtf
 email-validator
 gunicorn
+flask_mail
+python_dotenv
+flask_uploads
