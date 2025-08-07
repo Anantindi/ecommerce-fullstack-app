@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Thank You{% endblock %}
+
+{% block content %}
+<div class="cart-container" style="text-align:center;">
+    <h2>🎉 Thank You for Choosing PhoneVerse!</h2>
+    <p>Your order has been placed and will be delivered shortly.</p>
+    <p>An order confirmation has been sent to your email.</p>
+    <a href="{{ url_for('main.index') }}" class="view-button">Continue Browsing</a>
+</div>
+{% endblock %}

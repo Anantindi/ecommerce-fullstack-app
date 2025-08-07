@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="product-detail">
+  <div class="product-image">
+    <img src="{{ product.image_url }}" alt="{{ product.name }}">
+  </div>
+  <div class="product-info">
+    <h2>{{ product.name }}</h2>
+    <p><strong>Brand:</strong> {{ product.brand }}</p>
+    <p>{{ product.description }}</p>
+    <p class="price">₹{{ product.price }}</p>
+    <p><strong>Stock:</strong> {{ product.stock }}</p>
+
+    {% if current_user.is_authenticated %}
+      {% if product.stock == 0 %}
+        <p style="color:red;"><strong>Currently Out of Stock</strong></p>
+      {% else %}
+        <form action="{{ url_for('main.add_to_cart', product_id=product.id) }}" method="POST" style="display:inline;">
+          <button type="submit" class="btn">Add to Cart</button>
+        </form>
+        <a href="{{ url_for('main.buy_now', product_id=product.id) }}" class="btn buy-now">Buy Now</a>
+      {% endif %}
+    {% else %}
+      <a href="{{ url_for('main.login') }}" class="btn">Login to Add to Cart</a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

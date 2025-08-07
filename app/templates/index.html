@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}Home - Phone Store{% endblock %}
+
+{% block content %}
+<div class="home-container">
+
+    <!-- Sidebar Filter -->
+    <aside class="sidebar" id="sidebar">
+        <h3>Filters</h3>
+        <form method="GET" action="{{ url_for('main.index') }}">
+            <div class="filter-group">
+                <h4>Brand</h4>
+                <label><input type="checkbox" name="brand" value="Apple" {% if 'Apple' in selected_brands %}checked{% endif %}> iPhone</label>
+                <label><input type="checkbox" name="brand" value="Google" {% if 'Google' in selected_brands %}checked{% endif %}> Google</label>
+                <label><input type="checkbox" name="brand" value="Nothing" {% if 'Nothing' in selected_brands %}checked{% endif %}> Nothing</label>
+                <label><input type="checkbox" name="brand" value="Samsung" {% if 'Samsung' in selected_brands %}checked{% endif %}> Samsung</label>
+            </div>
+
+            <div class="filter-group">
+                <h4>Price Range</h4>
+                <label><input type="radio" name="price" value="0-10000" {% if selected_price == '0-10000' %}checked{% endif %}> ₹0 - ₹10,000</label>
+                <label><input type="radio" name="price" value="10000-25000" {% if selected_price == '10000-25000' %}checked{% endif %}> ₹10,000 - ₹25,000</label>
+                <label><input type="radio" name="price" value="25000-50000" {% if selected_price == '25000-50000' %}checked{% endif %}> ₹25,000 - ₹50,000</label>
+                <label><input type="radio" name="price" value="50000+" {% if selected_price == '50000+' %}checked{% endif %}> ₹50,000+</label>
+            </div>
+
+            <button type="submit" class="btn filter-btn">Apply Filters</button>
+        </form>
+    </aside>
+
+    <!-- Product Grid -->
+    <div class="product-list" id="product-list">
+        {% for product in products %}
+        <div class="product">
+            <img src="{{ product.image_url }}" alt="{{ product.name }}" class="product-img">
+            <h3>{{ product.name }}</h3>
+            <p><strong>Brand:</strong> {{ product.brand }}</p>
+            <p><strong>Price:</strong> ₹{{ product.price }}</p>
+            <a href="{{ url_for('main.product', product_id=product.id) }}" class="view-button">View Details</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const toggleBtn = document.getElementById("hamburger-btn");
+    const sidebar = document.getElementById("sidebar");
+
+    toggleBtn?.addEventListener("click", () => {
+        sidebar.classList.toggle("show");
+    });
+</script>
+{% endblock %}
+
+
+

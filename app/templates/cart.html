@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Your Cart{% endblock %}
+
+{% block content %}
+<div class="cart-container">
+    <h2 style="text-align: center;">Your Cart</h2>
+
+    {% if cart_items %}
+    <table class="cart-table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td><img src="{{ item.product.image_url }}" alt="{{ item.product.name }}" class="cart-img"></td>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>₹{{ item.product.price }}</td>
+                <td>
+                    <form action="{{ url_for('main.add_to_cart', product_id=item.product.id) }}" method="POST" style="display:inline;">
+                        <button class="cart-btn plus">+</button>
+                    </form>
+                    <form action="{{ url_for('main.remove_from_cart', product_id=item.product.id) }}" method="POST" style="display:inline;">
+                        <button class="cart-btn minus">-</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="cart-summary">
+        <p class="cart-total">Total: ₹{{ total }}</p>
+        <a href="{{ url_for('main.checkout') }}" class="btn checkout-btn">Proceed to Checkout</a>
+    </div>
+
+    {% else %}
+    <p style="text-align: center; font-size: 18px;">Your cart is empty.</p>
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="{{ url_for('main.index') }}" class="btn">Browse Products</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

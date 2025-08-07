@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title %}Checkout - Phone-Verse{% endblock %}
+
+{% block content %}
+<div class="checkout-container">
+    <h2 class="checkout-title">Order Confirmation</h2>
+
+    <form method="POST" action="{{ url_for('main.confirm_order') }}">
+        <label for="email">Enter your email to receive order confirmation:</label>
+        <input type="email" id="email" name="email" required class="checkout-email"
+               value="{{ current_user.email if current_user.is_authenticated else '' }}">
+
+        {% if product %}
+            <!-- Single product purchase -->
+            <input type="hidden" name="product_id" value="{{ product.id }}">
+            <table class="checkout-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Qty</th>
+                        <th>Unit Price</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ product.name }}</td>
+                        <td>1</td>
+                        <td>₹{{ product.price }}</td>
+                        <td>₹{{ product.price }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="checkout-summary">
+                <strong>Total: ₹{{ product.price }}</strong>
+                <button type="submit" class="btn checkout-btn">Confirm Order</button>
+            </div>
+        {% else %}
+            <!-- Cart purchase -->
+            <table class="checkout-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Qty</th>
+                        <th>Unit Price</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>₹{{ item.product.price }}</td>
+                        <td>₹{{ item.product.price * item.quantity }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="checkout-summary">
+                <strong>Total: ₹{{ total }}</strong>
+                <button type="submit" class="btn checkout-btn">Confirm Order</button>
+            </div>
+        {% endif %}
+    </form>
+</div>
+{% endblock %}

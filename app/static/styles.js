@@ -1,0 +1,1 @@
+console.log("JS loaded. Add cart functionality or dynamic UI here.");
