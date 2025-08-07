@@ -23,7 +23,14 @@ A responsive e-commerce web application to browse and purchase smartphones. Buil
 - **API Testing**: Postman
 
 ---
+🌐 REST API Support (JSON Responses)
+This project supports RESTful API responses in JSON format, making it easy for integration with frontend frameworks like React, Vue, or mobile apps.
 
+All major operations (products, login, register, cart, checkout) are available via API under the /api route.
+
+Automatically responds with application/json when accessed via API tools like Postman.
+
+Authentication and cart operations are protected using Flask-Login with token/session support.
 ---
 
 ## ⚙️ Setup Instructions
@@ -92,7 +99,21 @@ A responsive e-commerce web application to browse and purchase smartphones. Buil
 ├── requirements.txt
 └── README.md
 ```
+🚀 Live Deployment
+The project is hosted for public access using Render — a free cloud web service.
 
+🌍 Live Site: https://your-project-name.onrender.com
+(Replace the link with your actual Render URL)
+
+✅ Features available:
+
+Full frontend website
+
+All backend routes and API endpoints
+
+SQLite database hosted on Render's disk (note: temporary on free tier)
+
+Publicly accessible for demo and integration testing
 ---
 
 ## 👨‍💻 Developed By
